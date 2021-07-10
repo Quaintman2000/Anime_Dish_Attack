@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 256 192" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g id="Artboard1" transform="matrix(1.33333,0,0,0.75,0,2.33147e-15)">
+        <rect x="0" y="0" width="192" height="256" style="fill:none;"/>
+        <clipPath id="_clip1">
+            <rect x="0" y="0" width="192" height="256"/>
+        </clipPath>
+        <g clip-path="url(#_clip1)">
+            <g id="eyes" transform="matrix(1,0,0,1.66667,0,2.07242e-15)">
+                <g transform="matrix(0.7335,0,0,0.770079,-0.297986,-0.843125)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487" style="fill:rgb(3,49,145);"/>
+                </g>
+                <g transform="matrix(0.7335,0,0,0.770079,47.702,-0.843125)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487"/>
+                </g>
+                <g transform="matrix(0.7335,0,0,0.770079,95.702,-0.843125)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487" style="fill:rgb(38,90,185);"/>
+                </g>
+                <g transform="matrix(0.7335,0,0,0.770079,143.803,-0.843125)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487" style="fill:white;"/>
+                </g>
+            </g>
+            <g id="body" transform="matrix(1,0,0,1.66667,0,2.07242e-15)">
+                <g id="skin" transform="matrix(0.7335,0,0,0.770079,-0.297986,101.548)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487" style="fill:rgb(255,224,189);"/>
+                </g>
+                <g transform="matrix(0.7335,0,0,0.770079,47.8032,101.548)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487" style="fill:rgb(255,191,245);"/>
+                </g>
+            </g>
+            <g id="hair" transform="matrix(1,0,0,1.66667,0,2.07242e-15)">
+                <g transform="matrix(0.7335,0,0,0.770079,47.702,50.3569)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487" style="fill:rgb(255,99,232);"/>
+                </g>
+                <g transform="matrix(0.7335,0,0,0.770079,-0.196804,50.3483)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487"/>
+                </g>
+            </g>
+            <g id="shoes-others" serif:id="shoes&amp;others" transform="matrix(1,0,0,1.66667,96,-170.645)">
+                <g transform="matrix(0.7335,0,0,0.770079,-0.196804,203.94)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487"/>
+                </g>
+                <g transform="matrix(0.7335,0,0,0.770079,47.8032,203.94)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487" style="fill:rgb(29,29,29);"/>
+                </g>
+            </g>
+            <g id="clothes" transform="matrix(1,0,0,1.66667,96,-170.645)">
+                <g transform="matrix(0.7335,0,0,0.770079,-0.196804,152.748)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487" style="fill:rgb(19,25,31);"/>
+                </g>
+                <g transform="matrix(0.7335,0,0,0.770079,47.8032,152.748)">
+                    <rect x="0.268" y="1.106" width="65.44" height="66.487"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
