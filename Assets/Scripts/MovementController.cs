@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
+    [Header("Movement:"),Tooltip("Set the player's movement joystick here.")]
     public Joystick joystick;
+    [Tooltip("The max speed the player travels.")]
     public float speed = 10;
+    // Sets the initial velocity to be zero.
     Vector3 velocityVector = Vector3.zero;
-
+    [Tooltip("The maximum change in velocity. Acceleration.")]
     public float maxVelocityChange = 10f;
+    // Stores the rigidBody.
     Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Grabs the Rigidbody.
         rb = GetComponent<Rigidbody>();
     }
 
@@ -34,6 +39,10 @@ public class MovementController : MonoBehaviour
         // Apply movement
         Move(_movementVelocityVector);
     }
+    /// <summary>
+    /// Sets the velocity vector to the set vector.
+    /// </summary>
+    /// <param name="vector">The vector to set the velocity vector.</param>
     void Move(Vector3 vector)
     {
         velocityVector = vector;
@@ -41,6 +50,7 @@ public class MovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // If the pawn's velocity is NOT zero.
         if(velocityVector != Vector3.zero)
         {
             // Get rigidbody's current velocity.
@@ -52,8 +62,6 @@ public class MovementController : MonoBehaviour
             velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
             velocityChange.y = 0f;
             rb.AddForce(velocityChange, ForceMode.Acceleration);
-
         }
     }
-
 }
