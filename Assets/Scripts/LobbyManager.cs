@@ -25,11 +25,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        uI_LobbyGameobject.SetActive(false);
-        uI_ConnectionStatusGameobject.SetActive(false);
+        if (PhotonNetwork.IsConnected)
+        {
+            uI_LobbyGameobject.SetActive(true);
+            uI_ConnectionStatusGameobject.SetActive(false);
 
-        uI_loginGameobject.SetActive(true);
+            uI_loginGameobject.SetActive(false);
+        }
+        else
+        {
+            uI_LobbyGameobject.SetActive(false);
+            uI_ConnectionStatusGameobject.SetActive(false);
 
+            uI_loginGameobject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -76,7 +85,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnQuickMatchButtonClicked()
     {
         // SceneManager.LoadScene("Scene_Loading");
-        SceneLoader.Instance.LoadScene("Player&AR_Functionality");
+        SceneLoader.Instance.LoadScene("TutorialScene");
     }
 
 
