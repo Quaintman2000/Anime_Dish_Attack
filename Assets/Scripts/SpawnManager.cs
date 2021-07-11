@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            int randomSpawnPoint = Random.RandomRange(0, playerSpawnPositions.Length - 1);
+            int randomSpawnPoint = Random.Range(0, playerSpawnPositions.Length - 1);
             Vector3 instaniatePostion = playerSpawnPositions[randomSpawnPoint].position;
             PhotonNetwork.Instantiate(playerPrefabs[0].name, instaniatePostion, Quaternion.identity);
         }

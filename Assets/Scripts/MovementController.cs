@@ -20,7 +20,7 @@ public class MovementController : MonoBehaviour
     {
         // Grabs the Rigidbody.
         rb = GetComponent<Rigidbody>();
-        joystick = FindObjectOfType<Joystick>();
+        joystick = GetComponentInChildren<Joystick>();
     }
 
     // Update is called once per frame
