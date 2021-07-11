@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [Header("UI")]
     public GameObject uI_InformPanelGameobject;
-    public TextMeshPro uI_InformText;
+    public Text uI_InformText;
     public GameObject searchGameButton;
     // Start is called before the first frame update
     void Start()
