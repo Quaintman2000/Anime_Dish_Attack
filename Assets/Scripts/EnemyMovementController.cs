@@ -28,11 +28,11 @@ public class EnemyMovementController : MonoBehaviourPun
     {
         currentTarget = players[Random.Range(0, players.Count)].transform;
         //find target
-        Vector3 vectorToTarget = currentTarget.position - this.transform.position;
+        Vector3 vectorToTarget = (currentTarget.position + new Vector3(0, 4.13f, 0)) - this.transform.position;
         //find the rotation needed
         Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget);
         transform.rotation = targetRotation;
-        transform.position = Vector3.MoveTowards(transform.position, currentTarget.position, speed * Time.deltaTime) ;
+        transform.position += transform.forward * speed * Time.deltaTime;
 
 
     }
@@ -40,19 +40,20 @@ public class EnemyMovementController : MonoBehaviourPun
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            if (collision.collider.gameObject.GetComponent<PhotonView>().IsMine)
-            {
-                collision.gameObject.GetComponent<PhotonView>().RPC("DoDamage", RpcTarget.AllBuffered, 10);
-                
-            }
-            PhotonNetwork.Destroy(this.gameObject);
+            //if (collision.collider.gameObject.GetComponent<PhotonView>().IsMine)
+           // {
+                collision.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.AllBuffered, (float)10.0f);
+
+            PhotonNetwork.Destroy(this.photonView);
+            //}
+            
+        }
+        if(collision.gameObject.GetComponent<Projectile>())
+        {
+            PhotonNetwork.Destroy(this.photonView);
         }
     }
 
-    [PunRPC]
-    public void DoDamage(float _damage)
-    {
-        SendMessage("TakeDamage", _damage);
-    }
+   
     
 }
