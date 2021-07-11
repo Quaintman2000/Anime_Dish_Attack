@@ -12,7 +12,13 @@ public class MySynchronization : MonoBehaviour, IPunObservable
     Vector3 networkPosition;
     Quaternion networkRotation;
 
-    
+    public bool synchronizedVelocity = true;
+    public bool syncrhonizedAngularVelocity = true;
+    public bool isTeleportEnabled = true;
+    public float teleportIfDistanceGreaterThan = 1.0f;
+
+    float distance;
+    float angle;
 
     // Start is called before the first frame update
     void Awake()
@@ -27,14 +33,14 @@ public class MySynchronization : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     private void FixedUpdate()
     {
         if (!this.photonView.IsMine)
         {
-            rb.position = Vector3.MoveTowards(rb.position, networkPosition, Time.fixedDeltaTime);
-            rb.rotation = Quaternion.RotateTowards(rb.rotation, networkRotation, Time.fixedDeltaTime * 100);
+            rb.position = Vector3.MoveTowards(rb.position, networkPosition, distance * (1.0f/PhotonNetwork.SerializationRate));
+            rb.rotation = Quaternion.RotateTowards(rb.rotation, networkRotation, angle * (1.0f/PhotonNetwork.SerializationRate));
         }
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -46,12 +52,54 @@ public class MySynchronization : MonoBehaviour, IPunObservable
 
             stream.SendNext(rb.position);
             stream.SendNext(rb.rotation);
+
+            if (synchronizedVelocity)
+            {
+                stream.SendNext(rb.velocity);
+
+            }
+            if (syncrhonizedAngularVelocity)
+            {
+                stream.SendNext(rb.angularVelocity);
+            }
         }
         else if (stream.IsReading)
         {
             // On my player gameobject that exists in the remote player's game.
             networkPosition = (Vector3)stream.ReceiveNext();
             networkRotation = (Quaternion)stream.ReceiveNext();
+
+            if (isTeleportEnabled)
+            {
+                if (Vector3.Distance(rb.position, networkPosition)>teleportIfDistanceGreaterThan)
+                {
+                    rb.position = networkPosition;
+                }
+            }
+
+            if (synchronizedVelocity || syncrhonizedAngularVelocity)
+            {
+                float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+
+                if(synchronizedVelocity)
+                {
+                    rb.velocity = (Vector3)stream.ReceiveNext();
+
+                    networkPosition += rb.velocity * lag;
+
+                    distance = Vector3.Distance(rb.position, networkPosition);
+                }
+
+                if(syncrhonizedAngularVelocity)
+                {
+                    rb.angularVelocity = (Vector3)stream.ReceiveNext();
+
+                    networkRotation = Quaternion.Euler(rb.angularVelocity * lag) * networkRotation;
+
+                    angle = Quaternion.Angle(rb.rotation, networkRotation);
+                }
+
+            }
         }
     }
 }

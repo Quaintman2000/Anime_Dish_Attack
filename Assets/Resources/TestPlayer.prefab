@@ -418,6 +418,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   photonView: {fileID: 0}
+  synchronizedVelocity: 1
+  syncrhonizedAngularVelocity: 1
+  isTeleportEnabled: 1
+  teleportIfDistanceGreaterThan: 1
 --- !u!1 &8660267244901600696
 GameObject:
   m_ObjectHideFlags: 0
