@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public SpawnManager spawnManager;
     public List<Health> playerHealths = new List<Health>();
     public List<Health> enemyHealths = new List<Health>();
-    public bool gameStart { get { return PhotonNetwork.CurrentRoom.PlayerCount == 2; } }
+    public bool gameStart { get { return PhotonNetwork.CurrentRoom.PlayerCount == 1; } }
     public int maxEnemiesAtOneTime = 4;
     public float speedIncreaseIncrament = 1;
     float speedIncreaseModifier = 0;
@@ -27,22 +27,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     void Start()
     {
         uI_InformPanelGameobject.SetActive(true);
-        uI_InformText.text = "Search for Games to BATTLE!";
     }
 
     // Update is called once per frame
     void Update()
     {
-      
-        if (playerHealths.Count < 1)
+        if (PhotonNetwork.InRoom)
         {
-            GameOver();
+            if (playerHealths.Count < 1)
+            {
+                GameOver();
+            }
+            else if (gameStart)
+            {
+                EnemySpawnManagement();
+            }
         }
-        else if (gameStart && PhotonNetwork.IsMasterClient)
-        {
-            EnemySpawnManagement();
-        }
-
     }
 
     public void OnQuitButtonClicked()
@@ -63,11 +63,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     void EnemySpawnManagement()
     {
         // Calculate time to see if we can increase the speed.
-        if (PhotonNetwork.Time > nextTimeToIncreaseSpeed)
-        {
-            speedIncreaseModifier += speedIncreaseIncrament;
-            nextTimeToIncreaseSpeed = (float)PhotonNetwork.Time + speedIncreaseDelay;
-        }
+        //if (PhotonNetwork.Time > nextTimeToIncreaseSpeed)
+        //{
+        //    speedIncreaseModifier += speedIncreaseIncrament;
+        //    nextTimeToIncreaseSpeed = (float)PhotonNetwork.Time + speedIncreaseDelay;
+        //}
         // If the number of enemies in the scene is less than the number specified, spawn more.
         if (enemyHealths.Count < maxEnemiesAtOneTime)
         {

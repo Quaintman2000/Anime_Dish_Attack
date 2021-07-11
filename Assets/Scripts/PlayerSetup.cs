@@ -19,6 +19,8 @@ public class PlayerSetup : MonoBehaviourPun
             this.transform.GetComponent<PlayerMovement>().enabled = true;
             this.transform.GetComponent<PlayerMovement>().joystick.gameObject.SetActive(true);
             this.transform.GetComponent<Animator>().enabled = true;
+            this.transform.GetComponent<PlayerController>().enabled = true;
+            this.transform.GetComponent<PlayerController>().shootButton.gameObject.SetActive(true);
         }
         else
         {
@@ -27,6 +29,8 @@ public class PlayerSetup : MonoBehaviourPun
             this.transform.GetComponent<PlayerMovement>().enabled = false;
             this.transform.GetComponent<PlayerMovement>().joystick.gameObject.SetActive(false);
             this.transform.GetComponent<Animator>().enabled = true;
+            this.transform.GetComponent<PlayerController>().enabled = false;
+            this.transform.GetComponent<PlayerController>().shootButton.gameObject.SetActive(false);
         }
         SetPlayerName();
        

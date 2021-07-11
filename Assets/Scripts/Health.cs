@@ -44,8 +44,10 @@ public class Health : MonoBehaviourPun
     /// Deals damage to the pawn's health by set value.
     /// </summary>
     /// <param name="damage">The amount of damage dealt the player.</param>
+    [PunRPC]
     public void TakeDamage(float damage)
     {
+        Debug.Log("Damage taken");
         // Damage can't be < 0, else it turns into 0;
         damage = Mathf.Max(damage, 0f);
         // Clamps the damage to be greater than 0 while less than the max health.
