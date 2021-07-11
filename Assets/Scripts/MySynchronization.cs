@@ -8,6 +8,7 @@ public class MySynchronization : MonoBehaviour, IPunObservable
 {
     public Rigidbody rb;
     public PhotonView photonView;
+    public Animator anim;
 
     Vector3 networkPosition;
     Quaternion networkRotation;
@@ -53,6 +54,8 @@ public class MySynchronization : MonoBehaviour, IPunObservable
             stream.SendNext(rb.position);
             stream.SendNext(rb.rotation);
 
+            stream.SendNext(anim.GetFloat("Speed"));
+
             if (synchronizedVelocity)
             {
                 stream.SendNext(rb.velocity);
@@ -68,6 +71,8 @@ public class MySynchronization : MonoBehaviour, IPunObservable
             // On my player gameobject that exists in the remote player's game.
             networkPosition = (Vector3)stream.ReceiveNext();
             networkRotation = (Quaternion)stream.ReceiveNext();
+
+            anim.SetFloat("Speed", (float)stream.ReceiveNext());
 
             if (isTeleportEnabled)
             {

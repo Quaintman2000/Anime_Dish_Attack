@@ -16,15 +16,17 @@ public class PlayerSetup : MonoBehaviourPun
         {
             Debug.Log(this.gameObject + "PhotonView is mine");
             // The player is a local player
-            this.transform.GetComponent<MovementController>().enabled = true;
-            this.transform.GetComponent<MovementController>().joystick.gameObject.SetActive(true);
+            this.transform.GetComponent<PlayerMovement>().enabled = true;
+            this.transform.GetComponent<PlayerMovement>().joystick.gameObject.SetActive(true);
+            this.transform.GetComponent<Animator>().enabled = true;
         }
         else
         {
             Debug.Log(this.gameObject + "PhotonView is not mine");
             // The player is a remote player
-            this.transform.GetComponent<MovementController>().enabled = false;
-            this.transform.GetComponent<MovementController>().joystick.gameObject.SetActive(false);
+            this.transform.GetComponent<PlayerMovement>().enabled = false;
+            this.transform.GetComponent<PlayerMovement>().joystick.gameObject.SetActive(false);
+            this.transform.GetComponent<Animator>().enabled = true;
         }
         SetPlayerName();
        
