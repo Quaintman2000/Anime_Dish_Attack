@@ -17,10 +17,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     public SpawnManager spawnManager;
     public List<Health> playerHealths = new List<Health>();
     public List<Health> enemyHealths = new List<Health>();
-    public bool gameStart { get { return playerHealths.Count == 2; } }
+    public bool gameStart { get { return PhotonNetwork.CurrentRoom.PlayerCount == 2; } }
     public int maxEnemiesAtOneTime = 4;
     public float speedIncreaseIncrament = 1;
-    float speedIncreaseModifier;
+    float speedIncreaseModifier = 0;
     public float speedIncreaseDelay = 2;
     float nextTimeToIncreaseSpeed;
     // Start is called before the first frame update
@@ -33,14 +33,16 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if (gameStart)
+      
+        if (playerHealths.Count < 1)
         {
-            //EnemySpawnManagement();
-            if (playerHealths.Count == 0)
-            {
-                GameOver();
-            }
+            GameOver();
         }
+        else if (gameStart && PhotonNetwork.IsMasterClient)
+        {
+            EnemySpawnManagement();
+        }
+
     }
 
     public void OnQuitButtonClicked()
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     void EnemySpawnManagement()
     {
         // Calculate time to see if we can increase the speed.
-        if(PhotonNetwork.Time > nextTimeToIncreaseSpeed)
+        if (PhotonNetwork.Time > nextTimeToIncreaseSpeed)
         {
             speedIncreaseModifier += speedIncreaseIncrament;
             nextTimeToIncreaseSpeed = (float)PhotonNetwork.Time + speedIncreaseDelay;
@@ -97,7 +99,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        if(PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
             uI_InformText.text = "Joined to " + PhotonNetwork.CurrentRoom.Name + ". Waiting for other players...";
         }
@@ -107,6 +109,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             StartCoroutine(DeactivateAfterSeconds(uI_InformPanelGameobject, 2));
         }
         Debug.Log(PhotonNetwork.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
+
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -126,7 +129,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 2;
         // Creates the room.
-        PhotonNetwork.CreateRoom(randRoomName,roomOptions);
+        PhotonNetwork.CreateRoom(randRoomName, roomOptions);
     }
 
     IEnumerator DeactivateAfterSeconds(GameObject gameObject, float seconds)

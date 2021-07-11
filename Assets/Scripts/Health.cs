@@ -53,12 +53,15 @@ public class Health : MonoBehaviourPun
         // Invokes other functions needed when damage is taken.
         OnDamaged.Invoke();
 
-        healthBar.AdjustHealthBarTo((health / maxHealth));
+        if (healthBar != null)
+        {
+            healthBar.AdjustHealthBarTo((health / maxHealth));
+        }
         // If health is below 0, you die.
         if (health <= 0)
         {
             // Invokes functions when you die.
-            OnDie.Invoke();
+            PhotonNetwork.Destroy(this.gameObject);
         }
     }
     /// <summary>
@@ -74,15 +77,17 @@ public class Health : MonoBehaviourPun
         // Just in case of an overheal, revert health to the maximum value.
         health = Mathf.Min(health, maxHealth);
 
-        healthBar.AdjustHealthBarTo((health / maxHealth));
+        if (healthBar != null)
+        {
+            healthBar.AdjustHealthBarTo((health / maxHealth));
+        }
         // Invoke other functions when healed.
         OnHeal.Invoke();
     }
 
-    // Die.
-    public void Die()
+    private void OnDestroy()
     {
-        if(isPlayer)
+        if (isPlayer)
         {
             gameManager.playerHealths.Remove(this);
         }

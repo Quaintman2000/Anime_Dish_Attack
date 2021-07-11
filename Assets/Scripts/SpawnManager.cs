@@ -27,6 +27,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         Vector3 instaniatePostion = enemySpawnPoints[randomSpawnPoint].position;
         GameObject newEnemy = PhotonNetwork.Instantiate(enemyPrefabs[0].name, instaniatePostion, Quaternion.identity);
         // TODO: add the speed increase to the enemy.
+        newEnemy.GetComponent<EnemyMovementController>().speed += speedIncrease;
     }
     #region PHOTON CALL BACK METHODS
     public override void OnJoinedRoom()

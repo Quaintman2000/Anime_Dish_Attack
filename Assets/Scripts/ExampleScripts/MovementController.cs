@@ -40,10 +40,7 @@ public class MovementController : MonoBehaviour
         // Apply movement
         Move(_movementVelocityVector);
 
-        if (this.transform.GetComponent<Animator>() != null)
-        {
-            this.transform.GetComponent<Animator>().speed = rb.velocity.magnitude;
-        }
+      
     }
     /// <summary>
     /// Sets the velocity vector to the set vector.

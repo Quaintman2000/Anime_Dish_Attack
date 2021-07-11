@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun
 {
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +18,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnShoot()
+    {
+        PhotonNetwork.Instantiate("", firePoint.position, firePoint.rotation);
     }
 }
