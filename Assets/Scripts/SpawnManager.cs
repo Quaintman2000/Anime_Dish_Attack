@@ -7,6 +7,9 @@ public class SpawnManager : MonoBehaviourPunCallbacks
 {
     public GameObject[] playerPrefabs;
     public Transform[] playerSpawnPositions;
+
+    public GameObject[] enemyPrefabs;
+    public Transform[] enemySpawnPoints;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +21,13 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     {
 
     }
-
+    public void SpawnEnemies(float speedIncrease)
+    {
+        int randomSpawnPoint = Random.Range(0, enemySpawnPoints.Length - 1);
+        Vector3 instaniatePostion = enemySpawnPoints[randomSpawnPoint].position;
+        GameObject newEnemy = PhotonNetwork.Instantiate(enemyPrefabs[0].name, instaniatePostion, Quaternion.identity);
+        // TODO: add the speed increase to the enemy.
+    }
     #region PHOTON CALL BACK METHODS
     public override void OnJoinedRoom()
     {

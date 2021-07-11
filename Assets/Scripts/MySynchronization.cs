@@ -26,6 +26,7 @@ public class MySynchronization : MonoBehaviour, IPunObservable
     {
         rb = GetComponent<Rigidbody>();
         photonView = GetComponent<PhotonView>();
+        anim = GetComponent<Animator>();
 
         networkPosition = new Vector3();
         networkRotation = new Quaternion();
@@ -54,8 +55,10 @@ public class MySynchronization : MonoBehaviour, IPunObservable
             stream.SendNext(rb.position);
             stream.SendNext(rb.rotation);
 
-            stream.SendNext(anim.GetFloat("Speed"));
-
+            if (anim != null)
+            {
+                stream.SendNext(anim.GetFloat("Speed"));
+            }
             if (synchronizedVelocity)
             {
                 stream.SendNext(rb.velocity);
@@ -72,8 +75,10 @@ public class MySynchronization : MonoBehaviour, IPunObservable
             networkPosition = (Vector3)stream.ReceiveNext();
             networkRotation = (Quaternion)stream.ReceiveNext();
 
-            anim.SetFloat("Speed", (float)stream.ReceiveNext());
-
+            if (anim != null)
+            {
+                anim.SetFloat("Speed", (float)stream.ReceiveNext());
+            }
             if (isTeleportEnabled)
             {
                 if (Vector3.Distance(rb.position, networkPosition)>teleportIfDistanceGreaterThan)

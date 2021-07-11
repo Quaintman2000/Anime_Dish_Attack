@@ -12,6 +12,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject uI_InformPanelGameobject;
     public Text uI_InformText;
     public GameObject searchGameButton;
+
+    [Header("Game Management")]
+    public SpawnManager spawnManager;
+    public List<Health> playerHealths = new List<Health>();
+    public List<Health> enemyHealths = new List<Health>();
+    public bool gameStart { get { return playerHealths.Count == 2; } }
+    public int maxEnemiesAtOneTime = 4;
+    public float speedIncreaseIncrament = 1;
+    float speedIncreaseModifier;
+    public float speedIncreaseDelay = 2;
+    float nextTimeToIncreaseSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +33,50 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        
+        if (gameStart)
+        {
+            //EnemySpawnManagement();
+            if (playerHealths.Count == 0)
+            {
+                GameOver();
+            }
+        }
     }
 
+    public void OnQuitButtonClicked()
+    {
+        if (PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+        else
+        {
+            SceneLoader.Instance.LoadScene("LobbyScene");
+        }
+    }
+    void GameOver()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+    void EnemySpawnManagement()
+    {
+        // Calculate time to see if we can increase the speed.
+        if(PhotonNetwork.Time > nextTimeToIncreaseSpeed)
+        {
+            speedIncreaseModifier += speedIncreaseIncrament;
+            nextTimeToIncreaseSpeed = (float)PhotonNetwork.Time + speedIncreaseDelay;
+        }
+        // If the number of enemies in the scene is less than the number specified, spawn more.
+        if (enemyHealths.Count < maxEnemiesAtOneTime)
+        {
+            spawnManager.SpawnEnemies(speedIncreaseModifier);
+        }
+    }
     #region UI Callback Methods
+    public override void OnLeftRoom()
+    {
+        SceneLoader.Instance.LoadScene("GameOverScene");
+    }
     public void JoinRandomRoom()
     {
         uI_InformText.text = "Searching for available rooms...";
