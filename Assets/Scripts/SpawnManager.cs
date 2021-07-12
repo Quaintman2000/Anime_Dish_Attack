@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     public GameObject[] playerPrefabs;
     public Transform[] playerSpawnPositions;
 
+    public GameObject mapObject;
     public GameObject[] enemyPrefabs;
     public Transform[] enemySpawnPoints;
     // Start is called before the first frame update
@@ -39,5 +40,33 @@ public class SpawnManager : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate(playerPrefabs[0].name, instaniatePostion, Quaternion.identity);
         }
     }
+
+
     #endregion
+    //void SpawnPlayer()
+    //{
+    //    if (PhotonNetwork.IsConnectedAndReady)
+    //    {
+    //        int randomSpawnPoint = Random.Range(0, playerSpawnPositions.Length - 1);
+    //        Vector3 instaniatePostion = playerSpawnPositions[randomSpawnPoint].position;
+    //        PhotonNetwork.Instantiate(playerPrefabs[0].name, instaniatePostion, Quaternion.identity);
+
+    //        GameObject playerGameobject = Instantiate(playerPrefabs[0], instaniatePostion, Quaternion.identity);
+
+
+    //        if(PhotonNetwork.AllocateViewID(photonView))
+    //        {
+    //            object[] data = new object[]
+    //            {
+
+    //                playerGameobject.transform.position - mapObject.transform.position, playerGameobject.transform.rotation, photonView.ViewID,
+    //            };
+
+    //        }
+    //        else
+    //        {
+    //            Destroy(playerGameobject);
+    //        }
+    //    }
+    //}
 }

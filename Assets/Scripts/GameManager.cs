@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public SpawnManager spawnManager;
     public List<Health> playerHealths = new List<Health>();
     public List<Health> enemyHealths = new List<Health>();
-    public bool gameStart { get { return PhotonNetwork.CurrentRoom.PlayerCount == 1; } }
+    public bool gameStart { get { return PhotonNetwork.CurrentRoom.PlayerCount == 2; } }
     public int maxEnemiesAtOneTime = 4;
     public float speedIncreaseIncrament = 1;
     float speedIncreaseModifier = 0;

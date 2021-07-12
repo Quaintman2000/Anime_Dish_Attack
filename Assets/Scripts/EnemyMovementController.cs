@@ -28,7 +28,7 @@ public class EnemyMovementController : MonoBehaviourPun
     {
         currentTarget = players[Random.Range(0, players.Count)].transform;
         //find target
-        Vector3 vectorToTarget = (currentTarget.position + new Vector3(0, 4.13f, 0)) - this.transform.position;
+        Vector3 vectorToTarget = (currentTarget.position + new Vector3(0, 1.293f, 0)) - this.transform.position;
         //find the rotation needed
         Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget);
         transform.rotation = targetRotation;

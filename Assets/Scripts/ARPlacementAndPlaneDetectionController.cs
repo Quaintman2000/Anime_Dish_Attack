@@ -13,6 +13,7 @@ public class ARPlacementAndPlaneDetectionController : MonoBehaviour
     public GameObject placeButton;
     public GameObject adjustButton;
     public GameObject searchForGameButton;
+    public GameObject scaleSlider;
 
     public Text informUIPanel;
     // Start is called before the first frame update
@@ -24,7 +25,9 @@ public class ARPlacementAndPlaneDetectionController : MonoBehaviour
 
     void Start()
     {
+
         placeButton.SetActive(true);
+        scaleSlider.SetActive(true);
         adjustButton.SetActive(false);
         searchForGameButton.SetActive(false);
 
@@ -46,6 +49,7 @@ public class ARPlacementAndPlaneDetectionController : MonoBehaviour
         placeButton.SetActive(false);
         adjustButton.SetActive(true);
         searchForGameButton.SetActive(true);
+        scaleSlider.SetActive(false);
 
         informUIPanel.text = "Awesome! You placed the map... now click to search button to begin!";
     }
@@ -59,6 +63,7 @@ public class ARPlacementAndPlaneDetectionController : MonoBehaviour
         placeButton.SetActive(true);
         adjustButton.SetActive(false);
         searchForGameButton.SetActive(false);
+        scaleSlider.SetActive(true);
     }
     void SetAllPlanesActiveOrDeactive(bool value)
     {
